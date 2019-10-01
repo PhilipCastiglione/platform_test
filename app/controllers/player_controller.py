@@ -1,7 +1,7 @@
 from flask import jsonify
 from app import db
 from app.models import Player
-from app.validators import PlayerValidator
+from app.validators import BattleValidator, PlayerValidator
 
 # TODO: error handling
 # implement an error handler that looks at the error rather than throwing a 500
@@ -44,6 +44,32 @@ class PlayerController:
                 return '', 201
             else:
                 return jsonify(player_validator.errors), 422
+        except Exception as err:
+            # TODO: logging service
+            print(err)
+            return 'Internal Server Error', 500
+
+    def initiate_battle(self, id):
+        try:
+            initiating_player = Player.query.get(id)
+
+            if not initiating_player:
+                return 'Not found', 404
+
+            entry_params = self.request.json
+
+            # TODO:
+            # this approach means 2 db queries, one of which is redundant.
+            # This should be made more performant.
+            battle_validator = BattleValidator(entry_params, int(id))
+            battle_validator.validate()
+
+            if battle_validator.is_valid():
+                targetted_player = Player.query.get(entry_params['player_id'])
+                # TODO: enqueue battle request
+                return '', 204
+            else:
+                return jsonify(battle_validator.errors), 422
         except Exception as err:
             # TODO: logging service
             print(err)

@@ -16,3 +16,7 @@ def create_player():
 @app.route('/player/<id>', methods=['GET'])
 def show_player(id):
     return PlayerController(request).show(id)
+
+@app.route('/player/<id>/battle', methods=['POST'])
+def initiate_battle(id):
+    return PlayerController(request).initiate_battle(id)

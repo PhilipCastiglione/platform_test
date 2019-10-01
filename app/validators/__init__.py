@@ -1,1 +1,2 @@
 from app.validators.player_validator import PlayerValidator
+from app.validators.battle_validator import BattleValidator
