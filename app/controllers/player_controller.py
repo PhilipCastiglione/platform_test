@@ -37,7 +37,8 @@ class PlayerController:
                     gold=0,
                     attack_strength=70,
                     hit_points=100,
-                    luck=10
+                    luck=10,
+                    score=0
                 )
                 db.session.add(player)
                 db.session.commit()

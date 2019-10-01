@@ -15,13 +15,15 @@
 - [x] sql alchemy setup
 - [x] migrations
 - [x] model validators
-- [ ] battle endpoint
-- [ ] add score to player model
+- [x] battle endpoint
+- [x] enqueue battles
+- [x] add score to player model
 - [ ] leaderboard endpoint
 - [ ] tests
 
 # Battle Engine
 
-- [ ] worker app
-- [ ] queue system [redis queue](https://python-rq.org/)
-- [ ] ...
+- [x] ~worker app~ containing within the main app
+- [x] queue system [redis queue](https://python-rq.org/)
+- [ ] process integrity requirements
+- [ ] process battles

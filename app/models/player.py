@@ -7,6 +7,7 @@ class Player(db.Model):
     attack_strength = db.Column(db.Integer())
     hit_points = db.Column(db.Integer())
     luck = db.Column(db.Integer())
+    score = db.Column(db.Integer())
 
     def __repr__(self):
         return '<Player {}>'.format(self.id)
@@ -18,5 +19,6 @@ class Player(db.Model):
             "gold": self.gold,
             "attack_strength": self.attack_strength,
             "hit_points": self.hit_points,
-            "luck": self.luck
+            "luck": self.luck,
+            "score": self.score
         }
