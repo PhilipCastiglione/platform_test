@@ -1,7 +1,7 @@
 # All
 
 - [ ] README
-- [ ] Postman collection
+- [x] Postman collection
 - [ ] seed data
 
 # Web API

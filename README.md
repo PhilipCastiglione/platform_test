@@ -57,17 +57,20 @@ Establish .env from .env sample:
 cp .env.sample .env
 ```
 
-Create database & run migrations:
+Create database & run migrations for dev and test dbs:
 
 ```
 pipenv run flask db upgrade
+TESTING=1 pipenv run flask db upgrade
 ```
 
 You will need to start Redis in whatever way appropriate for your system. I am using [RedisApp](https://github.com/jpadilla/redisapp).
 
 Run tests:
 
-TODO
+```
+pipenv run pytest
+```
 
 Run the web server:
 
@@ -75,10 +78,4 @@ Run the web server:
 pipenv run python app.py
 ```
 
-Seed some data:
-
-TODO
-
-Import the postman collection:
-
-TODO
+Import the postman collection into postman, then try out the requests!
