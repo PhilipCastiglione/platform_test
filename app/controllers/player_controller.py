@@ -2,7 +2,7 @@ from flask import jsonify
 from app import db, redis, battle_queue
 from app.models import Player
 from app.validators import BattleValidator, PlayerValidator
-from app.battle_engine import BattleEngine
+from app.battle_processor import BattleProcessor
 
 # TODO: error handling
 # implement an error handler that looks at the error rather than throwing a 500
@@ -53,6 +53,7 @@ class PlayerController:
             print(err)
             return 'Internal Server Error', 500
 
+    # TODO: this could be a restful thing, with battle being a (transient) resource
     def initiate_battle(self, id):
         try:
             initiating_player = Player.query.get(id)
@@ -77,7 +78,7 @@ class PlayerController:
                 iii. No battles should be missed
                 iv. Battles should be processed as soon as possible, but there is no hard requirement
                 '''
-                job = battle_queue.enqueue(BattleEngine.initiate_battle, initiating_player.id, targetted_player.id)
+                job = battle_queue.enqueue(BattleProcessor.initiate_battle, initiating_player.id, targetted_player.id)
                 # TODO: logging service, what to log about the job?
                 print(job)
                 return '', 204
@@ -88,6 +89,7 @@ class PlayerController:
             print(err)
             return 'Internal Server Error', 500
 
+    # TODO: this could be a restful thing, with leaderboard being a (transient) resource
     def leaderboard(self):
         # TODO: need to handle the risk that this (or entries) get stale
         # TODO: enhancements include pagination, always retrieving the requesting players score

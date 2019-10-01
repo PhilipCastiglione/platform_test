@@ -1,4 +1,4 @@
-class BattleEngine:
+class BattleProcessor:
     def __init__(self):
         pass
 

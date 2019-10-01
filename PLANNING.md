@@ -2,6 +2,7 @@
 
 - [ ] README
 - [ ] Postman collection
+- [ ] seed data
 
 # Web API
 
@@ -23,11 +24,15 @@
 - [x] redis implementation of leaderboard fetching
 - [ ] tests
 
-# Battle Engine
+# Battle Processor
 
 - [x] ~worker app~ containing within the main app
 - [x] queue system [redis queue](https://python-rq.org/)
 - [ ] process integrity requirements
-- [ ] process battles
+- [ ] pass battles to the engine
 - [ ] update players
 - [ ] update leaderboard
+
+# Battle Engine
+
+- [ ] Battle logic
