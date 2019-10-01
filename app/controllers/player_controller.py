@@ -1,7 +1,8 @@
 from flask import jsonify
-from app import db
+from app import db, battle_queue
 from app.models import Player
 from app.validators import BattleValidator, PlayerValidator
+from app.battle_engine import BattleEngine
 
 # TODO: error handling
 # implement an error handler that looks at the error rather than throwing a 500
@@ -66,7 +67,16 @@ class PlayerController:
 
             if battle_validator.is_valid():
                 targetted_player = Player.query.get(entry_params['player_id'])
-                # TODO: enqueue battle request
+                # TODO: ensure enqueue battle request requirements:
+                '''
+                i. Battles must happen in the order that they were submitted
+                ii. Each battle should only be executed once
+                iii. No battles should be missed
+                iv. Battles should be processed as soon as possible, but there is no hard requirement
+                '''
+                job = battle_queue.enqueue(BattleEngine.initiate_battle, initiating_player.id, targetted_player.id)
+                # TODO: logging service, what to log about the job?
+                print(job)
                 return '', 204
             else:
                 return jsonify(battle_validator.errors), 422

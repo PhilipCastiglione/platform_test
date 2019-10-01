@@ -9,6 +9,8 @@ python-dotenv = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
 pytest = "*"
+rq = "*"
+redis = "*"
 
 [dev-packages]
 pylint = "*"
