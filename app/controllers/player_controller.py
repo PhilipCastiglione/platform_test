@@ -1,5 +1,5 @@
 from flask import jsonify
-from app import db, battle_queue
+from app import db, redis, battle_queue
 from app.models import Player
 from app.validators import BattleValidator, PlayerValidator
 from app.battle_engine import BattleEngine
@@ -43,6 +43,8 @@ class PlayerController:
                 db.session.add(player)
                 db.session.commit()
 
+                redis.connection.zadd('leaderboard', {player.id: player.score})
+
                 return '', 201
             else:
                 return jsonify(player_validator.errors), 422
@@ -85,3 +87,10 @@ class PlayerController:
             # TODO: logging service
             print(err)
             return 'Internal Server Error', 500
+
+    def leaderboard(self):
+        # TODO: need to handle the risk that this (or entries) get stale
+        # TODO: enhancements include pagination, always retrieving the requesting players score
+        scores = redis.connection.zrange('leaderboard', 0, 10, withscores=True, score_cast_func=int, desc=True)
+        score_response = [{"position": i, "score": score, "id": id} for i, (id, score) in enumerate(scores)]
+        return jsonify(score_response), 200

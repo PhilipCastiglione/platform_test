@@ -1,6 +1,7 @@
 # All
 
 - [ ] README
+- [ ] Postman collection
 
 # Web API
 
@@ -18,7 +19,8 @@
 - [x] battle endpoint
 - [x] enqueue battles
 - [x] add score to player model
-- [ ] leaderboard endpoint
+- [x] leaderboard endpoint
+- [x] redis implementation of leaderboard fetching
 - [ ] tests
 
 # Battle Engine
@@ -27,3 +29,5 @@
 - [x] queue system [redis queue](https://python-rq.org/)
 - [ ] process integrity requirements
 - [ ] process battles
+- [ ] update players
+- [ ] update leaderboard
